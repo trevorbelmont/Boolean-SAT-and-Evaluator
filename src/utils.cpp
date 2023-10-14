@@ -173,7 +173,7 @@ bool sat(Fila exp, string values) {
 }
 
 Fila string2qeuee(string exp) {
-  string *tempSplitted = new string[500];
+  int *tempSplitted = new int[1000000];
   int tam = split(exp, ' ', tempSplitted);
   Fila aux(tam);
   aux = aux.loadQueue(tempSplitted, tam);
@@ -181,18 +181,35 @@ Fila string2qeuee(string exp) {
   return aux;
 }
 
-int split(string mono, char delim, string *splitted) {
+int split(string mono, char delim, int *splitted) {
   stringstream ss(mono);
   string s;
   int i = 0;
   while (getline(ss, s, delim)) {
     // Ignora strings vazias ou espaços em branco. Útil, uma vez que a entrada contém espaços duplos.
     if (s != " " && s != "") {
-      splitted[i] = s;
-      i++;
+      // Se a palavra for um número converte pra int e carrega o vetor
+      if (checkDigits(s)) {
+        splitted[i] = stoi(s);
+        i++;
+      }
+
+      // Se a palavra for um dos operadores esperados, codifica (como valores negativos)
+      else if (checkOperator(s)) {
+        if (s == "~") {
+          splitted[i] = -4;
+        }
+        else if (s == "&") {
+          splitted[i] = -3;
+        }
+        else if (s == "&") {
+          splitted[i] = -3;
+        }
+      }
     }
   }
-  return i;
+}
+return i;
 }
 
 bool checkDigits(string s) {
@@ -266,12 +283,12 @@ bool solvePostfix(Fila postFix, string entry) {
       if (pNumbers.size() < 2 && (s == "|" || s == "&")) {
         error e;
         e.message = "Erro!!! A expressão pósfixa armazenada não é válida!";
-        cout << e.message;
+        // cout << e.message;
         throw e;
       } else if (pNumbers.size() < 1 && s == "~") {
         error e;
         e.message = "Erro!!! A expressão pósfixa armazenada não é válida!";
-        cout << e.message;
+        //  cout << e.message;
         throw e;
       }
 
@@ -300,7 +317,7 @@ bool solvePostfix(Fila postFix, string entry) {
   if (pNumbers.size() != 1) {
     error e;
     e.message = "Erro!!! A expressão pósfixa armazenada é inválida!";
-    cout << e.message;
+    // cout << e.message;
     throw e;
   }
   // Retorna o único valor da pilha de int: o resultado da expressão.

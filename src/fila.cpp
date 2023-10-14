@@ -8,10 +8,9 @@ using namespace std;
 Fila::Fila() {
   // s_ = new char[1000];
   size_ = 0;
-  max_size_ = 1000;
+  max_size_ = 200000;
   first_ = 0;
   last_ = 0;
-  ;
 }
 
 Fila::Fila(int tam) {
@@ -21,7 +20,7 @@ Fila::Fila(int tam) {
   first_ = last_ = 0;
 }
 
-bool Fila::push(string k) {
+bool Fila::push(int k) {
   if (full()) {
     return false;
   }
@@ -31,9 +30,9 @@ bool Fila::push(string k) {
   return true;
 }
 
-string Fila::pop() {
+int Fila::pop() {
   if (empty()) {
-    return "!";  // Tratar a Exceção ¬
+    return -404;  // Tratar a Exceção ¬
   }
   size_--;
   return s_[first_++];
@@ -51,21 +50,21 @@ int Fila::size() {
   return size_;
 }
 
-string Fila::front() {
+int Fila::front() {
   if (empty()) {
-    return "!error!";  // Tratar exceção. ¬
+    return -404;  // Tratar exceção. ¬
   }
   return s_[first_];
 }
 
-string Fila::at(int i) {
+int Fila::at(int i) {
   if (empty() || (first_ + i) > last_ - 1) {
-    return "!error!";  // /¬ resolver exceção
+    return -404;  // /¬ resolver exceção
   }
   return s_[i];
 }
 
-Fila Fila::loadQueue(string *s, int tam) {
+Fila Fila::loadQueue(int *s, int tam) {
   Fila aux(tam);
 
   for (int i = 0; i < tam; i++) {
@@ -78,7 +77,7 @@ Fila Fila::loadQueue(string *s, int tam) {
 string Fila::toString(string separator) {
   string aux = "";
   for (int i = first_; i < last_; i++) {
-    aux += s_[i];
+    aux += to_string(s_[i]);
     if (i != last_ - 1) aux += separator;
   }
   return aux;
@@ -86,7 +85,7 @@ string Fila::toString(string separator) {
 
 void Fila::clear() {
   for (int i = 0; i < size_; i++) {
-    s_[i].clear();
+    s_[i] = 0;
   }
   first_ = size_ = 0;
 }

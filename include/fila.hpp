@@ -6,8 +6,8 @@ using namespace std;
 
 class Fila {
  private:
-  string s_[1000];  // vetor que comporta a fila de strings;
-                    // ¬ resolver questão do alocamento dinâmico
+  int s_[20000];  // vetor que comporta a fila de strings;
+                  // ¬ resolver questão do alocamento dinâmico
 
   int size_;      // o tamanho utilizado da fila. É também o próximo índice disponível - se a fila não estiver cheia.
   int max_size_;  // o tamanho máximo da fila.
@@ -22,17 +22,17 @@ class Fila {
   Fila(int tam);
 
   // Retorna e remove o primeiro string da fila.
-  string pop();
+  int pop();
 
   // Enfileira um elemento. Retorna true se enfileirou com êxito
-  bool push(string x);
+  bool push(int x);
 
   // Retorna o próximo elemento sem removê-lo.
-  string front();
+  int front();
 
   // Retorna a string na posição especificada sem destruí-la.
   // Anlálogo ao método deque.at(i) (método "at" da double ended queue) da stl.
-  string at(int i);
+  int at(int i);
 
   // Retorna true se a fila estiver vazia.
   bool empty();
@@ -44,7 +44,7 @@ class Fila {
   int size();
 
   // Lê um array de strings e os enfileira
-  Fila loadQueue(string *s, int tam);
+  Fila loadQueue(int *s, int tam);
 
   // Retorna uma string contendo todas as entradas da fila interpoladas pelo "separator".
   // Caso nenhuma string separadora seja especificada, um espaço em branco será utilizado.

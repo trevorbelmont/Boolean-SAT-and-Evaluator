@@ -16,10 +16,10 @@ int main(int argc, char** argv) {
   string entrada = argv[3];
 
   if (argc < 4) {
-    cout << "Sintaxe inválida!" << endl;
+    // cout << "Sintaxe inválida!" << endl;
     exit(1);
   }
-  Fila f(1000);
+  Fila f;
   f = infix2Postfix(exp);
 
   // Função avaliadora
