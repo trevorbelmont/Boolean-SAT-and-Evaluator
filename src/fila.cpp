@@ -6,7 +6,7 @@
 using namespace std;
 
 Fila::Fila() {
-  s_ = new string[1000];
+  // s_ = new char[1000];
   size_ = 0;
   max_size_ = 1000;
   first_ = 0;
@@ -14,28 +14,8 @@ Fila::Fila() {
   ;
 }
 
-Fila& Fila::operator=(const Fila& other) {
-  if (this == &other) {
-    return *this;
-  }
-
-  delete[] s_;
-
-  max_size_ = other.max_size_;
-  size_ = other.size_;
-  first_ = other.first_;
-  last_ = other.last_;
-
-  s_ = new string[max_size_];
-  for (int i = 0; i < max_size_; i++) {
-    s_[i] = other.s_[i];
-  }
-
-  return *this;
-}
-
 Fila::Fila(int tam) {
-  s_ = new string[tam];
+  // s_ = new char[tam];
   max_size_ = tam;
   size_ = 0;
   first_ = last_ = 0;
@@ -85,7 +65,7 @@ string Fila::at(int i) {
   return s_[i];
 }
 
-Fila Fila::loadQueue(string* s, int tam) {
+Fila Fila::loadQueue(string *s, int tam) {
   Fila aux(tam);
 
   for (int i = 0; i < tam; i++) {

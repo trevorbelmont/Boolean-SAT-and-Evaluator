@@ -7,8 +7,8 @@ using namespace std;
 template <typename Tipo>  // O tipo "Tipo" para a classe genérica
 class Pilha {
  private:
-  Tipo t_[1000];  // vetor que comporta pilha de de Tipos;
- 
+  Tipo* t_;  // vetor que comporta pilha de de Tipos;
+
   int size_;      // o tamanho utilizado da pilha.
   int max_size_;  // o tamanho máximo da pilha.
 
@@ -45,12 +45,14 @@ template <typename Tipo>
 Pilha<Tipo>::Pilha() {
   size_ = 0;
   max_size_ = 1000;
+  t_ = new Tipo[max_size_];
 }
 
 template <typename Tipo>
 Pilha<Tipo>::Pilha(int tam) {
   max_size_ = tam;
   size_ = 0;
+  t_ = new Tipo[tam];
 }
 
 template <typename Tipo>
@@ -95,7 +97,7 @@ Tipo Pilha<Tipo>::top() {
 
 template <typename Tipo>
 Pilha<Tipo>::~Pilha() {
-  // delete[] c_;
+  delete[] t_;
 }
 
 #endif

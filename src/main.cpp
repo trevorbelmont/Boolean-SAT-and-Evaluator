@@ -19,7 +19,13 @@ int main(int argc, char** argv) {
     cout << "Sintaxe inválida!" << endl;
     exit(1);
   }
-  Fila f = infix2Postfix(exp);
+  Fila f(1000);
+  f = infix2Postfix(exp);
+
+  for (int i = 0; i < f.size(); i++) {
+    cout << f.at(i) << " ";
+  }
+  cout << endl;
 
   // Função avaliadora
   if (function == "-a") {

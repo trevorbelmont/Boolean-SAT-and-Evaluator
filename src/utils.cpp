@@ -21,7 +21,7 @@ Fila infix2Postfix(string infix) {
     } else if (checkOperator(s)) {  // Se for um operador, empilha ou adiciona na fila
 
       // Dá flush na pilha de operadores enquanto eles tiverem maior prioridade que o próximo operador lido da expressão.
-      while (!pOp.empty() && priority(pOp.top()) >= priority(s)) {
+      while (!pOp.empty() && priority(pOp.top()) > priority(s)) {
         fPostfix.push(pOp.pop());
       }
       pOp.push(s);
@@ -248,7 +248,7 @@ int calculate(int a, char op, int b) {
 }
 
 bool solvePostfix(Fila postFix, string entry) {
-  Pilha<int> pNumbers; // pilha auxiliar que comporta os valores das variáveis para resolver a expressão
+  Pilha<int> pNumbers;  // pilha auxiliar que comporta os valores das variáveis para resolver a expressão
 
   // Desinfileira fila com expressão pósfixa.
   // Fila.at(i) poderia ser usado para evitar desinfileirar a lista, caso a avaliação não fosse a última chamada no trabalho.
@@ -257,7 +257,7 @@ bool solvePostfix(Fila postFix, string entry) {
 
     // Se a entrada for um número, empilha na pilha de inteiros
     if (checkDigits(s)) {
-      //adciona na pilha de inteiros o valor da variável apontada pela variável - de acordo com seu índice.
+      // adciona na pilha de inteiros o valor da variável apontada pela variável - de acordo com seu índice.
       pNumbers.push(entry[stoi(s)] - int('0'));
     }
     // Se não for um número e for um operador previsto.
@@ -266,10 +266,12 @@ bool solvePostfix(Fila postFix, string entry) {
       if (pNumbers.size() < 2 && (s == "|" || s == "&")) {
         error e;
         e.message = "Erro!!! A expressão pósfixa armazenada não é válida!";
+        cout << e.message;
         throw e;
       } else if (pNumbers.size() < 1 && s == "~") {
         error e;
         e.message = "Erro!!! A expressão pósfixa armazenada não é válida!";
+        cout << e.message;
         throw e;
       }
 
@@ -298,6 +300,7 @@ bool solvePostfix(Fila postFix, string entry) {
   if (pNumbers.size() != 1) {
     error e;
     e.message = "Erro!!! A expressão pósfixa armazenada é inválida!";
+    cout << e.message;
     throw e;
   }
   // Retorna o único valor da pilha de int: o resultado da expressão.

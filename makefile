@@ -58,10 +58,8 @@ ${obj}/%.o:  ${src}/%.cpp $(headers)
 	${cxx} ${cflags} -c -I ${incld} $< -o $@ -g -pg
 
 run: ${target}
-	./$(target) -a "0 & 11" 100101010101010101010
-	./$(target) -s "0 | 1 & 2" 0 e0
-	./$(target) -s "0 | 1 & 2" e11
-
+	./${target} -a "~ ~ 0 | 1" 10
+	./${target} -s "0 | ~ ~ 1" ea
 
 # Apaga apenas os .o e executáveis previstos neste makefile 
 # (e também qualquer objeto nomeado por um header template)
