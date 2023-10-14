@@ -22,11 +22,6 @@ int main(int argc, char** argv) {
   Fila f(1000);
   f = infix2Postfix(exp);
 
-  for (int i = 0; i < f.size(); i++) {
-    cout << f.at(i) << " ";
-  }
-  cout << endl;
-
   // Função avaliadora
   if (function == "-a") {
     cout << solvePostfix(f, entrada) << endl;
