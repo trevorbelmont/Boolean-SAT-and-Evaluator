@@ -59,6 +59,8 @@ ${obj}/%.o:  ${src}/%.cpp $(headers)
 
 run: ${target}
 	./$(target) -a "0 & 11" 100101010101010101010
+	./$(target) -s "0 | 1 & 2" 0 e0
+	./$(target) -s "0 | 1 & 2" e11
 
 
 # Apaga apenas os .o e executáveis previstos neste makefile 

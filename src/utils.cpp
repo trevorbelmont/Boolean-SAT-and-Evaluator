@@ -16,7 +16,7 @@ Fila infix2Postfix(string infix) {
   while (!exp.empty()) {
     string s = exp.pop();  // lê o próximo elemento da fila de string contendo a expressão
 
-    if (checkDigits(s)) {  // Se for um número INTEIRAMENTE válido, adiciona na fila
+    if (checkDigits(s)) {  // checa se é um número
       fPostfix.push(s);
     } else if (checkOperator(s)) {  // Se for um operador, empilha ou adiciona na fila
 
@@ -60,7 +60,7 @@ Fila infix2Postfix(string infix) {
 }
 
 string replaceBooleans(string exp, string entry) {
-  for (int i = 0; i < exp.length(); i++) {
+  for (int i = 0; i < exp.size(); i++) {
     string c = "";
     c += exp[i];
     if (checkDigits(c) && stoi(c) < entry.length()) {
@@ -96,14 +96,13 @@ bool satE(Fila exp, Fila var) {
   while (i < var.size()) {
     bool res = solvePostfix(exp, var.at(i));
     if (res) {
-      cout << res << " " << var.at(i) << endl;
       s[sat] = var.at(i);
       sat++;
     }
     i++;
   }
   if (sat == 0) {
-    cout << sat << false << endl;
+    cout << false << endl;
     return sat;
   } else {
     cout << true << " " << solution(s, sat) << endl;
@@ -117,23 +116,18 @@ bool satA(Fila exp, string values) {
 
   Fila var;
   variations(values, 'a', 0, var);
-  cout << "para todo : " << values << endl;
 
   // Itera pelas possibilidades e checa se é satisfazível
   while (i < var.size()) {
     bool res = solvePostfix(exp, var.at(i));
     if (res) {
-      cout << res << "  : " << var.at(i) << endl;
       sat++;
     } else {
-      cout << res << "  : " << var.at(i) << "  FALSO!!!" << endl;
       break;
     }
     i++;
   }
   if (sat == var.size()) {
-    cout << true << "  : " << values << " "
-         << "TRUE." << endl;
     return true;
   } else {
     return false;
@@ -153,7 +147,6 @@ string solution(string sol[], int n) {
       }
     }
   }
-  cout << "Final Solution: " << solution << endl;
   return solution;
 }
 
@@ -169,18 +162,12 @@ bool sat(Fila exp, string values) {
   for (int i = 0; i < exist.size(); i++) {
     bool res = satA(exp, exist.at(i));
     if (res) {
-      cout << i << "  ->  " << exist.at(i) << endl;
       solutions[solved] = exist.at(i);
       solved++;
     }
   }
 
-  cout << endl;
-  cout << endl;
-  for (int i = 0; i < solved; i++)
-    cout << solutions[i] << endl;
-
-  cout << bool(solved) << "  : " << solution(solutions, solved) << endl;
+  cout << bool(solved) << " " << solution(solutions, solved) << endl;
 
   return solved;
 }
@@ -214,7 +201,7 @@ bool checkDigits(string s) {
     int cint = int(c);  // cast c para int
 
     // Se c algum carectere de s NÃO está entre '0' (48) e '9' (57),
-    // retorna falso - pois s não está no formato numérico esparado
+    // retorna falso - pois s não está no formato numérico esperado
     if (!(cint >= 48 && cint <= 57)) {
       return false;
     }
@@ -261,15 +248,16 @@ int calculate(int a, char op, int b) {
 }
 
 bool solvePostfix(Fila postFix, string entry) {
-  Pilha<int> pNumbers;
+  Pilha<int> pNumbers; // pilha auxiliar que comporta os valores das variáveis para resolver a expressão
 
   // Desinfileira fila com expressão pósfixa.
   // Fila.at(i) poderia ser usado para evitar desinfileirar a lista, caso a avaliação não fosse a última chamada no trabalho.
   for (int i = 0; i < postFix.size(); i++) {
     string s = postFix.at(i);
 
-    // Se a entrada for um número, empilha na pilha de floats
+    // Se a entrada for um número, empilha na pilha de inteiros
     if (checkDigits(s)) {
+      //adciona na pilha de inteiros o valor da variável apontada pela variável - de acordo com seu índice.
       pNumbers.push(entry[stoi(s)] - int('0'));
     }
     // Se não for um número e for um operador previsto.
@@ -306,12 +294,12 @@ bool solvePostfix(Fila postFix, string entry) {
     }
   }  // Fecha o loop para prosseguir com os retornos da função.
 
-  // Lança exceção se não houver apenas um float (o resultado) na pilha de floats.
+  // Lança exceção se não houver apenas um valor (o resultado) na pilha de números.
   if (pNumbers.size() != 1) {
     error e;
     e.message = "Erro!!! A expressão pósfixa armazenada é inválida!";
     throw e;
   }
-  // Retorna o único float da pilha de floats: o resultado da expressão.
+  // Retorna o único valor da pilha de int: o resultado da expressão.
   return pNumbers.pop();
 }

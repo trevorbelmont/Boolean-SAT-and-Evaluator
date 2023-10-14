@@ -6,9 +6,8 @@ using namespace std;
 
 class Fila {
  private:
-  string s_[500];  // vetor que comporta a fila de strings;
-                   // ¬ resolver questão do alocamento dinâmico
-
+  string* s_;  //_[1000];  // vetor que comporta a fila de strings;
+  
   int size_;      // o tamanho utilizado da fila. É também o próximo índice disponível - se a fila não estiver cheia.
   int max_size_;  // o tamanho máximo da fila.
   int first_;     // o índice para o primeiro elemento da fila;
@@ -20,6 +19,8 @@ class Fila {
 
   // Cria fila com máximo de tam strings.
   Fila(int tam);
+
+  Fila& operator=(const Fila& other);
 
   // Retorna e remove o primeiro string da fila.
   string pop();
@@ -44,7 +45,7 @@ class Fila {
   int size();
 
   // Lê um array de strings e os enfileira
-  Fila loadQueue(string *s, int tam);
+  Fila loadQueue(string* s, int tam);
 
   // Retorna uma string contendo todas as entradas da fila interpoladas pelo "separator".
   // Caso nenhuma string separadora seja especificada, um espaço em branco será utilizado.

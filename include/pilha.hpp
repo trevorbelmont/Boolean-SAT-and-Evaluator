@@ -8,8 +8,7 @@ template <typename Tipo>  // O tipo "Tipo" para a classe genérica
 class Pilha {
  private:
   Tipo t_[1000];  // vetor que comporta pilha de de Tipos;
-  // ¬ Sobrecarregar operador > e < e =
-
+ 
   int size_;      // o tamanho utilizado da pilha.
   int max_size_;  // o tamanho máximo da pilha.
 

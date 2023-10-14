@@ -13,7 +13,7 @@ struct error {
 };
 
 // Calcula a operação binária definida pelo char "operador".
-// Lança exceções se houver divisão por zero ou operador não previsto.
+// Lança exceções se houver operador não previsto.
 int calculate(int a, char operador, int b);
 // Retorna o resulado da expressão pósfixa carregada na fila sem desinfileirar ela.
 // Lança exceções caso a expressão seja inválida.
@@ -31,18 +31,19 @@ int split(string monolitica, char delim, string *splitted);
 // Retorna uma fila carregada com as subsrings de "exp"
 Fila string2qeuee(string exp);
 
-// Checa se todos os caracteres da string de números, s, são dígitos ou pontos e se há no máximo um ponto na string.
+// Checa se todos os caracteres da string de números, s, são dígitos.
 bool checkDigits(string s);
 
 // Retorna a prioridade do operador (retorna 0 se não for um operador previsto).
 int priority(string s);
 
-// Verifica se a string s carrega um operador previsto (x*/+-).
+// Verifica se a string s carrega um operador previsto (&|~).
 bool checkOperator(string s);
 
 // Troca as variáveis na expressão, por seus respectivos valores.
 string replaceBooleans(string exp, string entradas);
 
+// Gera strings de variação da entrada substituindo o quantifier por 1s e 0s
 void variations(string values, char quantifier, int i, Fila &out);
 
 // Método que testa expressões que possuem apenas 'existe'
