@@ -5,6 +5,8 @@
 #include <string>
 using namespace std;
 
+
+
 Fila infix2Postfix(string infix) {
   Pilha<string> pOp;  // pilha que armazena operadores temporáriamente
   Fila fPostfix;      // Fila que comporta a expressão PÓSFIXA resultante
@@ -173,7 +175,7 @@ bool sat(Fila exp, string values) {
 }
 
 Fila string2qeuee(string exp) {
-  int *tempSplitted = new int[1000000];
+  string *tempSplitted = new string[1000000];
   int tam = split(exp, ' ', tempSplitted);
   Fila aux(tam);
   aux = aux.loadQueue(tempSplitted, tam);
@@ -181,35 +183,18 @@ Fila string2qeuee(string exp) {
   return aux;
 }
 
-int split(string mono, char delim, int *splitted) {
+int split(string mono, char delim, string *splitted) {
   stringstream ss(mono);
   string s;
   int i = 0;
   while (getline(ss, s, delim)) {
     // Ignora strings vazias ou espaços em branco. Útil, uma vez que a entrada contém espaços duplos.
     if (s != " " && s != "") {
-      // Se a palavra for um número converte pra int e carrega o vetor
-      if (checkDigits(s)) {
-        splitted[i] = stoi(s);
-        i++;
-      }
-
-      // Se a palavra for um dos operadores esperados, codifica (como valores negativos)
-      else if (checkOperator(s)) {
-        if (s == "~") {
-          splitted[i] = -4;
-        }
-        else if (s == "&") {
-          splitted[i] = -3;
-        }
-        else if (s == "&") {
-          splitted[i] = -3;
-        }
-      }
+      splitted[i] = s;
+      i++;
     }
   }
-}
-return i;
+  return i;
 }
 
 bool checkDigits(string s) {
