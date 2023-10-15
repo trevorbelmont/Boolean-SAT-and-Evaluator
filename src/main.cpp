@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
     // cout << "Sintaxe inválida!" << endl;
     exit(1);
   }
-  Fila f;
+  Fila<string> f;
   f = infix2Postfix(exp);
 
   // Função avaliadora
