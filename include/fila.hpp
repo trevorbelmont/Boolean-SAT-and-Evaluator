@@ -4,15 +4,15 @@
 #include <string>
 
 #define LENGTH 2
-#define MAX 2000
+#define MAX 1000000
 
 using namespace std;
 
 template <typename Tipo>
 class Fila {
  private:
-  Tipo s_[MAX];  // vetor que comporta a fila de strings;
-                 // ¬ resolver questão do alocamento dinâmico
+  Tipo *s_;  // s_[MAX];  // vetor que comporta a fila de strings;
+             //  ¬ resolver questão do alocamento dinâmico
 
   int size_;      // o tamanho utilizado da fila. É também o próximo índice disponível - se a fila não estiver cheia.
   int max_size_;  // o tamanho máximo da fila.
@@ -49,7 +49,7 @@ class Fila {
   int size();
 
   // Lê um array de strings e os enfileira
-  Fila loadQueue(Tipo *s, int tam);
+  void loadQueue(Tipo *s, int tam);
 
   // Retorna uma string contendo todas as entradas da fila interpoladas pelo "separator".
   // Caso nenhuma string separadora seja especificada, um espaço em branco será utilizado.
@@ -64,7 +64,7 @@ class Fila {
 
 template <typename Tipo>
 Fila<Tipo>::Fila() {
-  // s_ = new char[1000];
+  s_ = new Tipo[1000];
   size_ = 0;
   max_size_ = MAX;
   first_ = 0;
@@ -78,7 +78,7 @@ Fila<Tipo>::Fila(int tam) {
     cout << "Excpetion e: the required Fila size (" << tam << ") is beyond permited maximum (" << MAX << "! " << endl;
     tam = MAX;
   }
-  // s_ = new char[tam];
+  s_ = new Tipo[tam];
   max_size_ = tam;
   size_ = 0;
   first_ = last_ = 0;
@@ -136,14 +136,13 @@ Tipo Fila<Tipo>::at(int i) {
 }
 
 template <typename Tipo>
-Fila<Tipo> Fila<Tipo>::loadQueue(Tipo *s, int tam) {
-  Fila<Tipo> aux(tam);
+void Fila<Tipo>::loadQueue(Tipo *s, int tam) {
+  delete[] s_;
+  s_ = new Tipo[tam];
 
   for (int i = 0; i < tam; i++) {
-    aux.push(s[i]);
+    this->push(s[i]);
   }
-
-  return aux;
 }
 
 template <typename Tipo>
@@ -159,10 +158,12 @@ string Fila<Tipo>::toString(string separator) {
 template <typename Tipo>
 void Fila<Tipo>::clear() {
   first_ = size_ = 0;
+  delete[] s_;
+  s_ = new Tipo[max_size_];
 }
 template <typename Tipo>
 Fila<Tipo>::~Fila() {
-  // delete[] s_;
+   delete[] s_;
 }
 
 #endif

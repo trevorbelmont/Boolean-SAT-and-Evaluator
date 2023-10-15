@@ -1,5 +1,5 @@
 cxx=g++ -std=c++17
-cflags= -w
+cflags= -Wall
 
 # := ou = ? Atribuição simples ourecursiva e porque:
 
@@ -47,15 +47,15 @@ libraries= $(wildcard $(lib)/*)									# Uma lista com todos os arquivos na pas
 
 # Compila o executável com todos os pré-requisitos ($^) e nomeando com o nome da regra ($target) usando $@
 ${target}: $(objetcts) $(headers)
-	${cxx} ${cflags} $^ -o $@ 
+	${cxx} ${cflags} $^ -o $@ -g -pg
 	
 # faz o mesmo mas a regra chama "all" (pro sistema de VPLs)
 all: $(objetcts) $(headers)
-	${cxx} ${cflags} $^ -o ${target}
+	${cxx} ${cflags} $^ -o ${target} -g -pg	
 
 # Compila o objeto qualqeur objeto, %. Dependências: seu próprio cpp e TODAS os headers
 ${obj}/%.o:  ${src}/%.cpp $(headers)
-	${cxx} ${cflags} -c -I ${incld} $< -o $@ 
+	${cxx} ${cflags} -c -I ${incld} $< -o $@ -g -pg
 
 run: ${target}
 	./${target} -a "~ ~ 0 | 1" 10

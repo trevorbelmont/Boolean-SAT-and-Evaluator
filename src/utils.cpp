@@ -5,12 +5,9 @@
 #include <string>
 using namespace std;
 
-
-
-Fila<string> infix2Postfix(string infix) {
-  
-  Pilha<string> pOp;  // pilha que armazena operadores temporáriamente
-  Fila<string> fPostfix;      // Fila que comporta a expressão PÓSFIXA resultante
+void infix2Postfix(string infix, Fila<string> &fPostfix) {
+  // fPostfix.clear();
+  Pilha<string> pOp(infix.size());  // pilha que armazena operadores temporáriamente
 
   Fila<string> exp = string2qeuee(infix);
   // guarda o número de parênteses. Será incrementado a cada "(" e decrementado a cada ")". Deve resultar zero ao fim do carregamento..
@@ -43,7 +40,7 @@ Fila<string> infix2Postfix(string infix) {
     else {
       Fila<string> e;
       e.push("NAO VALIDA! Não previsto");  // ¬ resolver exceção
-      return e;
+                                           //    return e;
     }
   }
 
@@ -52,14 +49,14 @@ Fila<string> infix2Postfix(string infix) {
   if (par != 0) {
     Fila<string> e;
     e.push("NAO VALIDA! Parêntesis não pares");  // ¬ resolver exceção
-    return e;
+                                                 // return e;
   }
 
   // Adiciona operadores restantes na pilha na fila
   while (!pOp.empty()) {
     fPostfix.push(pOp.pop());
   }
-  return fPostfix;
+  // return fPostfix;
 }
 
 string replaceBooleans(string exp, string entry) {
@@ -90,7 +87,7 @@ void variations(string values, char quantifier, int i, Fila<string> &out) {
   }
 }
 
-bool satE(Fila<string> exp, Fila<string> var) {
+bool satE(Fila<string> &exp, Fila<string> var) {
   int i = 0;
   int sat = 0;
   string s[var.size()];  // vetor que guarda apenas as configurações que deram positivas.
@@ -113,7 +110,7 @@ bool satE(Fila<string> exp, Fila<string> var) {
   }
 }
 
-bool satA(Fila<string> exp, string values) {
+bool satA(Fila<string> &exp, string values) {
   int i = 0;
   int sat = 0;
 
@@ -153,7 +150,7 @@ string solution(string sol[], int n) {
   return solution;
 }
 
-bool sat(Fila<string> exp, string values) {
+bool sat(Fila<string> &exp, string values) {
   Fila<string> exist;
   // a fila exist recebe todos os valores possíveis de existem.
   variations(values, 'e', 0, exist);
@@ -176,10 +173,10 @@ bool sat(Fila<string> exp, string values) {
 }
 
 Fila<string> string2qeuee(string exp) {
-  string *tempSplitted = new string[1000000];
+  string *tempSplitted = new string[MAX];
   int tam = split(exp, ' ', tempSplitted);
   Fila<string> aux(tam);
-  aux = aux.loadQueue(tempSplitted, tam);
+  aux.loadQueue(tempSplitted, tam);
   delete[] tempSplitted;
   return aux;
 }
@@ -250,11 +247,10 @@ int calculate(int a, char op, int b) {
   }
 }
 
-bool solvePostfix(Fila<string> postFix, string entry) {
+bool solvePostfix(Fila<string> &postFix, string entry) {
   Pilha<int> pNumbers;  // pilha auxiliar que comporta os valores das variáveis para resolver a expressão
 
   // Desinfileira fila com expressão pósfixa.
-  // Fila.at(i) poderia ser usado para evitar desinfileirar a lista, caso a avaliação não fosse a última chamada no trabalho.
   for (int i = 0; i < postFix.size(); i++) {
     string s = postFix.at(i);
 
@@ -277,7 +273,6 @@ bool solvePostfix(Fila<string> postFix, string entry) {
         //  cout << e.message;
         throw e;
       }
-
       if (s == "|" || s == "&") {
         // desempilha e armazena os dois números no topo da pilha de floats
         int b = pNumbers.pop();
@@ -306,6 +301,7 @@ bool solvePostfix(Fila<string> postFix, string entry) {
     // cout << e.message;
     throw e;
   }
+
   // Retorna o único valor da pilha de int: o resultado da expressão.
   return pNumbers.pop();
 }
