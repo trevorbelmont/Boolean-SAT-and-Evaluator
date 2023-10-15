@@ -38,7 +38,7 @@ void infix2Postfix(string infix, Fila<string> &fPostfix) {
     }
     // Se for um caso não previsto a expressão não é válida
     else {
-      Fila<string> e;
+      Fila<string> e(1);
       e.push("NAO VALIDA! Não previsto");  // ¬ resolver exceção
                                            //    return e;
     }
@@ -47,7 +47,7 @@ void infix2Postfix(string infix, Fila<string> &fPostfix) {
   // Aqui todas as entradas da fila contendo a expressão já foram lidas.
   // Caso o número de "(" seja diferente do número de ")", retorna NÂO VALIDO
   if (par != 0) {
-    Fila<string> e;
+    Fila<string> e(1);
     e.push("NAO VALIDA! Parêntesis não pares");  // ¬ resolver exceção
                                                  // return e;
   }

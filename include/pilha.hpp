@@ -1,7 +1,9 @@
 #ifndef PILHA_HPP
 #define PILha_HPP
-
 #include <string>
+
+#define LENGTH 1000000
+
 using namespace std;
 
 template <typename Tipo>  // O tipo "Tipo" para a classe genérica
@@ -44,7 +46,7 @@ class Pilha {
 template <typename Tipo>
 Pilha<Tipo>::Pilha() {
   size_ = 0;
-  max_size_ = 1000;
+  max_size_ = LENGTH;
   t_ = new Tipo[max_size_];
 }
 

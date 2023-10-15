@@ -8,14 +8,6 @@
 
 using namespace std;
 
-int main2() {
-  Fila<string> f = string2qeuee("   9 9 9 ");
-  Fila<string> ff(99999);
-
-  infix2Postfix("~ ( 1 & 2 )", ff);
-
-  cout << ff.at(0) << ff.at(1) << ff.at(2);
-}
 int main(int argc, char** argv) {
   string function = argv[1];
 
@@ -26,7 +18,7 @@ int main(int argc, char** argv) {
     // cout << "Sintaxe inválida!" << endl;
     exit(1);
   }
-  Fila<string> f;
+  Fila<string> f(exp.size());
   infix2Postfix(exp, f);
 
   // Função avaliadora
@@ -38,4 +30,6 @@ int main(int argc, char** argv) {
   else if (function == "-s") {
     sat(f, entrada);
   }
+
+  exit(0);
 }
