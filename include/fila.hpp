@@ -1,13 +1,17 @@
 #ifndef FILA_HPP
 #define FILA_HPP
+#include <iostream>
 #include <string>
+
+#define LENGTH 2
+#define MAX 700000
 
 using namespace std;
 
 class Fila {
  private:
-  string s_[1000];  // vetor que comporta a fila de strings;
-                    // ¬ resolver questão do alocamento dinâmico
+  char s_[MAX][LENGTH];  // vetor que comporta a fila de strings;
+                         // ¬ resolver questão do alocamento dinâmico
 
   int size_;      // o tamanho utilizado da fila. É também o próximo índice disponível - se a fila não estiver cheia.
   int max_size_;  // o tamanho máximo da fila.
